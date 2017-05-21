@@ -1,4 +1,5 @@
 ﻿using Lab.Livraria.Entidades;
+using Lab.Livraria.Infra;
 using Lab.Livraria.Models.ORM;
 using System;
 using System.Collections.Generic;
@@ -9,15 +10,15 @@ using System.Web;
 
 namespace Lab.Livraria.Aplicacao
 {
-    public class LivroAplicacao : IDisposable
+    public class LivroAplicacao : ILivroAplicacao
     {
         private DbContext _contexto;
         private DbSet<Livro> _livroSet;
 
-        public LivroAplicacao()
+        public LivroAplicacao(DbContext contexto)
         {
             //Em um caso na vida real, seria criado através de injeção de dependencias
-            _contexto = new LivrariaContexto();
+            _contexto = contexto;
             _livroSet = _contexto.Set<Livro>();
         }
 

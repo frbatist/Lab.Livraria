@@ -12,7 +12,7 @@ namespace Lab.Livraria.Models.ORM
         public static IQueryable<Livro> ObterTodos(this DbSet<Livro> livrosSet)
         {
             var consulta = from livro in livrosSet
-                           orderby livro.Nome ascending
+                           orderby livro.Nome
                            select livro;
             return consulta;
         }

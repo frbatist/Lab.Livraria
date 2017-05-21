@@ -8,11 +8,16 @@ namespace Lab.Livraria.Controllers
 {
     public class LivroController : Controller
     {
-        private LivroAplicacao _aplicacao = new LivroAplicacao();
+        private ILivroAplicacao _livroAplicacao;
+
+        public LivroController(ILivroAplicacao livroAplicacao)
+        {
+            _livroAplicacao = livroAplicacao;
+        }
 
         public async Task<ActionResult> Index()
         {
-            return View(await _aplicacao.ObterTodos());
+            return View(await _livroAplicacao.ObterTodos());
         }
 
         public ActionResult Inserir()
@@ -26,7 +31,7 @@ namespace Lab.Livraria.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _aplicacao.Inserir(livro);                
+                await _livroAplicacao.Inserir(livro);                
                 return RedirectToAction("Index");
             }
 
@@ -39,7 +44,7 @@ namespace Lab.Livraria.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Livro livro = await _aplicacao.ObterPorId(id);
+            Livro livro = await _livroAplicacao.ObterPorId(id);
             if (livro == null)
             {
                 return HttpNotFound();
@@ -53,7 +58,7 @@ namespace Lab.Livraria.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _aplicacao.Alterar(livro);                
+                await _livroAplicacao.Alterar(livro);                
                 return RedirectToAction("Index");
             }
             return View(livro);
@@ -66,7 +71,7 @@ namespace Lab.Livraria.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Livro livro = await _aplicacao.ObterPorId(id);
+            Livro livro = await _livroAplicacao.ObterPorId(id);
             if (livro == null)
             {
                 return HttpNotFound();
@@ -79,7 +84,7 @@ namespace Lab.Livraria.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ExcluirConfirmado(long id)
         {
-            await _aplicacao.Excluir(id);            
+            await _livroAplicacao.Excluir(id);            
             return RedirectToAction("Index");
         }
 
@@ -87,7 +92,7 @@ namespace Lab.Livraria.Controllers
         {
             if (disposing)
             {
-                _aplicacao.Dispose();
+                _livroAplicacao.Dispose();
             }
             base.Dispose(disposing);
         }

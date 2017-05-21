@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.0
+VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab.Livraria", "Lab.Livraria\Lab.Livraria.csproj", "{199E52A8-E0A9-469B-8DC8-473F2798B2DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Livraria.Tests", "Livraria.Tests\Livraria.Tests.csproj", "{0F2CD656-BDFA-4CB4-BF82-AFDF2BE817EA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{199E52A8-E0A9-469B-8DC8-473F2798B2DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{199E52A8-E0A9-469B-8DC8-473F2798B2DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{199E52A8-E0A9-469B-8DC8-473F2798B2DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F2CD656-BDFA-4CB4-BF82-AFDF2BE817EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F2CD656-BDFA-4CB4-BF82-AFDF2BE817EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F2CD656-BDFA-4CB4-BF82-AFDF2BE817EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F2CD656-BDFA-4CB4-BF82-AFDF2BE817EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
