@@ -3,6 +3,7 @@ using System.Net;
 using System.Web.Mvc;
 using Lab.Livraria.Entidades;
 using Lab.Livraria.Aplicacao;
+using System;
 
 namespace Lab.Livraria.Controllers
 {
@@ -26,16 +27,17 @@ namespace Lab.Livraria.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Inserir(Livro livro)
         {
-            if (ModelState.IsValid)
+            try
             {
-                await _livroAplicacao.Inserir(livro);                
+                await _livroAplicacao.Inserir(livro);
                 return RedirectToAction("Index");
             }
-
-            return View(livro);
+            catch (Exception)
+            {
+                return View(livro);
+            }
         }
         
         public async Task<ActionResult> Alterar(long? id)
@@ -53,15 +55,17 @@ namespace Lab.Livraria.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Alterar(Livro livro)
         {
-            if (ModelState.IsValid)
+            try
             {
-                await _livroAplicacao.Alterar(livro);                
+                await _livroAplicacao.Alterar(livro);
                 return RedirectToAction("Index");
             }
-            return View(livro);
+            catch (Exception)
+            {
+                return View(livro);
+            }            
         }
 
         // GET: Livro/Delete/5
@@ -81,11 +85,17 @@ namespace Lab.Livraria.Controllers
 
         
         [HttpPost, ActionName("Excluir")]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> ExcluirConfirmado(long id)
         {
-            await _livroAplicacao.Excluir(id);            
-            return RedirectToAction("Index");
+            try
+            {
+                await _livroAplicacao.Excluir(id);
+                return RedirectToAction("Index");
+            }
+            catch (Exception)
+            {
+                return View();
+            }
         }
 
         protected override void Dispose(bool disposing)

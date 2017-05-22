@@ -9,7 +9,6 @@
 <h3>Convirma a remoção do Livro @Model.Id - @Model.Nome ?</h3>
 <div>
     @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
             <input type="submit" value="Excluir" class="btn btn-default" />

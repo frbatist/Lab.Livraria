@@ -20,17 +20,98 @@ namespace Livraria.Tests.Controllers
         [TestMethod]
         public async Task Index()
         {
+            LivroController controller = new LivroController(ObterMockAplicacao());
+            ViewResult result = await controller.Index() as ViewResult;
+
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public void GetInserir()
+        {
+            LivroController controller = new LivroController(ObterMockAplicacao());
+            ViewResult result = controller.Inserir() as ViewResult;
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public async Task PostInserir()
+        {
             var contexto = new Mock<DbContext>();
             var mockSet = new Mock<DbSet<Livro>>();
             Livro[] livros = ObterLivrosCenarioTeste();
             ConfigurarMockSet(livros, contexto, mockSet);
+            var aplicacao = new LivroAplicacao(contexto.Object);
+            var livro = new Livro
+            {
+                Id = 5,
+                Nome = "Livro teste",
+                Autor = "Autor teste",
+                Ano = 2011,
+                Edicao = 1
+            };
+            LivroController controller = new LivroController(aplicacao);
+            ViewResult result = await controller.Inserir(livro) as ViewResult;
+            mockSet.Verify(m => m.AddRange(It.IsAny<IEnumerable<Livro>>()), Times.Once(), "Um livro deve ser inserido pelo método");
+            contexto.Verify(m => m.SaveChangesAsync(), Times.AtLeastOnce(), "É necessário finalizar o contexto!");
+        }
 
-            ILivroAplicacao livroAplicacao = new LivroAplicacao(contexto.Object);
-            LivroController controller = new LivroController(livroAplicacao);
-
-            ViewResult result = await controller.Index() as ViewResult;
-
+        [TestMethod]
+        public async Task GetAlterar()
+        {
+            LivroController controller = new LivroController(ObterMockAplicacao());
+            ViewResult result = await controller.Alterar(1) as ViewResult;
             Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public async Task PostAlterar()
+        {
+            var contexto = new Mock<DbContext>();
+            var mockSet = new Mock<DbSet<Livro>>();
+            Livro[] livros = ObterLivrosCenarioTeste();
+            ConfigurarMockSet(livros, contexto, mockSet);
+            var aplicacao = new LivroAplicacao(contexto.Object);
+            var livro = livros.Where(d => d.Id == 1).First();
+            var nomeAnterior = livro.Nome;
+            livro.Nome = "Novo nome";
+            LivroController controller = new LivroController(aplicacao);
+            ViewResult result = await controller.Alterar(livro) as ViewResult;
+
+            Assert.AreNotEqual(nomeAnterior, contexto.Object.Set<Livro>().Find(1).Nome);
+            contexto.Verify(m => m.SaveChangesAsync(), Times.AtLeastOnce(), "É necessário finalizar o contexto!");
+        }
+
+        [TestMethod]
+        public async Task GetExcluir()
+        {
+            LivroController controller = new LivroController(ObterMockAplicacao());
+            ViewResult result = await controller.Excluir(1) as ViewResult;
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public async Task PostExcluir()
+        {
+            var contexto = new Mock<DbContext>();
+            var mockSet = new Mock<DbSet<Livro>>();
+            Livro[] livros = ObterLivrosCenarioTeste();
+            ConfigurarMockSet(livros, contexto, mockSet);
+            var aplicacao = new LivroAplicacao(contexto.Object);
+            LivroController controller = new LivroController(aplicacao);
+            ViewResult result = await controller.ExcluirConfirmado(1) as ViewResult;
+
+            Assert.IsNull(contexto.Object.Set<Livro>().Find(1));
+            contexto.Verify(m => m.SaveChangesAsync(), Times.AtLeastOnce(), "É necessário finalizar o contexto!");
+        }
+
+        private ILivroAplicacao ObterMockAplicacao()
+        {
+            var contexto = new Mock<DbContext>();
+            var mockSet = new Mock<DbSet<Livro>>();
+            Livro[] livros = ObterLivrosCenarioTeste();
+            ConfigurarMockSet(livros, contexto, mockSet);
+            return new LivroAplicacao(contexto.Object);
         }
 
         private Livro[] ObterLivrosCenarioTeste()
