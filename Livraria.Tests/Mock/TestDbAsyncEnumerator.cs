@@ -7,6 +7,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
+/// <summary>
+/// Contem classes para configurar métodos assíncronos no mock do entity framework
+/// </summary>
 namespace Livraria.Tests
 {
     internal class TestDbAsyncQueryProvider<TEntity> : IDbAsyncQueryProvider

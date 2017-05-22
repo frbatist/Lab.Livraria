@@ -8,8 +8,9 @@
 
 <h3>Convirma a remoção do Livro @Model.Id - @Model.Nome ?</h3>
 <div>
-    @using (Html.BeginForm()) {
-
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-actions no-color">
             <input type="submit" value="Excluir" class="btn btn-default" />
             @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-default" })

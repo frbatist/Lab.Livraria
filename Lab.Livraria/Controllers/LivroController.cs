@@ -34,8 +34,9 @@ namespace Lab.Livraria.Controllers
                 await _livroAplicacao.Inserir(livro);
                 return RedirectToAction("Index");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                ModelState.AddModelError("", ex.Message);
                 return View(livro);
             }
         }
@@ -62,8 +63,9 @@ namespace Lab.Livraria.Controllers
                 await _livroAplicacao.Alterar(livro);
                 return RedirectToAction("Index");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                ModelState.AddModelError("", ex.Message);
                 return View(livro);
             }            
         }
@@ -87,14 +89,17 @@ namespace Lab.Livraria.Controllers
         [HttpPost, ActionName("Excluir")]
         public async Task<ActionResult> ExcluirConfirmado(long id)
         {
+            Livro livro = null;
             try
             {
+                livro = await _livroAplicacao.ObterPorId(id);                
                 await _livroAplicacao.Excluir(id);
                 return RedirectToAction("Index");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return View();
+                ModelState.AddModelError("", ex.Message);
+                return View(livro);
             }
         }
 

@@ -1,5 +1,4 @@
 ﻿using Lab.Livraria.Entidades;
-using Lab.Livraria.Infra;
 using Lab.Livraria.Models.ORM;
 using System;
 using System.Collections.Generic;

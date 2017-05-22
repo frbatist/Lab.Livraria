@@ -85,7 +85,7 @@
     <Compile Include="Controllers\HomeControllerTest.cs" />
     <Compile Include="Controllers\LivroControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestDbAsyncEnumerator.cs" />
+    <Compile Include="Mock\TestDbAsyncEnumerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

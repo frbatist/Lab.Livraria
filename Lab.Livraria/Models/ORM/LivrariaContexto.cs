@@ -20,6 +20,14 @@ namespace Lab.Livraria.Models.ORM
             modelBuilder.Configurations.Add(new LivroMapeamento());
         }
 
+        public void MarcaAlterado(params object[] objetos)
+        {
+            foreach (var item in objetos)
+            {
+                Entry(item).State = EntityState.Modified;
+            }
+        }
+
         public System.Data.Entity.DbSet<Lab.Livraria.Entidades.Livro> Livroes { get; set; }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Lab.Livraria.Aplicacao;
-using Lab.Livraria.Infra;
 using Lab.Livraria.Models.ORM;
 using SimpleInjector;
 using SimpleInjector.Integration.Web.Mvc;

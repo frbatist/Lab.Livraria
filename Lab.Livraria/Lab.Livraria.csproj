@@ -159,8 +159,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Infra\GerenciadorContexto.cs" />
-    <Compile Include="Infra\IGerenciadorContexto.cs" />
     <Compile Include="Models\Entidades\Livro.cs" />
     <Compile Include="Models\ORM\LivrariaContexto.cs" />
     <Compile Include="Models\ORM\Repositorios\LivroRepositorio.cs" />
@@ -227,6 +225,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Infra\" />
     <Folder Include="Models\ViewModel\" />
   </ItemGroup>
   <ItemGroup>
